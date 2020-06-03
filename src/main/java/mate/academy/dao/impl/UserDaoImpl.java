@@ -47,10 +47,9 @@ public class UserDaoImpl implements UserDao {
             CriteriaQuery<User> criteriaQuery = session.getCriteriaBuilder()
                     .createQuery(User.class);
             criteriaQuery.from(User.class);
-            List<User> resultList = session.createQuery(criteriaQuery).getResultList();
-            return resultList;
+            return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
-            throw new DataProcessingException("Error retrieving all cinema halls", e);
+            throw new DataProcessingException("Error retrieving all users", e);
         }
     }
 }
