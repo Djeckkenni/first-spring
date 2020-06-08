@@ -1,8 +1,12 @@
 package mate.academy.dao.impl;
 
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import mate.academy.dao.UserDao;
+import mate.academy.dto.UserResponseDto;
 import mate.academy.exceptions.DataProcessingException;
 import mate.academy.model.User;
 import org.hibernate.Session;
@@ -50,6 +54,21 @@ public class UserDaoImpl implements UserDao {
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Error retrieving all users", e);
+        }
+    }
+
+    @Override
+    public UserResponseDto get(Long userId) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<UserResponseDto> criteriaQuery = criteriaBuilder
+                    .createQuery(UserResponseDto.class);
+            Root<UserResponseDto> root = criteriaQuery.from(UserResponseDto.class);
+            Predicate userPredicate = criteriaBuilder.equal(root.get("id"), userId);
+            criteriaQuery.where(userPredicate);
+            return session.createQuery(criteriaQuery).uniqueResult();
+        } catch (Exception e) {
+            throw new DataProcessingException("Can't get user with id = " + userId, e);
         }
     }
 }
