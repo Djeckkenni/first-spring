@@ -39,8 +39,7 @@ public class UserController {
     public List<UserResponseDto> getAll() {
         List<User> users = userService.listUsers();
         return users.stream()
-                .map(user -> new UserResponseDto(user.getFirstName(),
-                        user.getLastName(), user.getMail()))
+                .map(this::getDto)
                 .collect(Collectors.toList());
     }
 
