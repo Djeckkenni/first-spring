@@ -6,7 +6,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import mate.academy.dao.UserDao;
-import mate.academy.dto.UserResponseDto;
 import mate.academy.exceptions.DataProcessingException;
 import mate.academy.model.User;
 import org.hibernate.Session;
@@ -58,12 +57,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UserResponseDto get(Long userId) {
+    public User get(Long userId) {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<UserResponseDto> criteriaQuery = criteriaBuilder
-                    .createQuery(UserResponseDto.class);
-            Root<UserResponseDto> root = criteriaQuery.from(UserResponseDto.class);
+            CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+            Root<User> root = criteriaQuery.from(User.class);
             Predicate userPredicate = criteriaBuilder.equal(root.get("id"), userId);
             criteriaQuery.where(userPredicate);
             return session.createQuery(criteriaQuery).uniqueResult();

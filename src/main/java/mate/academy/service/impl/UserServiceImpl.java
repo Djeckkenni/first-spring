@@ -2,7 +2,6 @@ package mate.academy.service.impl;
 
 import java.util.List;
 import mate.academy.dao.UserDao;
-import mate.academy.dto.UserResponseDto;
 import mate.academy.model.User;
 import mate.academy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto get(Long userId) {
+    public User get(Long userId) {
         return userDao.get(userId);
     }
 }

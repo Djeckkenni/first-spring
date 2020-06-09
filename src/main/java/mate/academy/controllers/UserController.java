@@ -32,8 +32,7 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public UserResponseDto getUser(@PathVariable Long userId) {
-        UserResponseDto user = userService.get(userId);
-        return new UserResponseDto(user.getFirstName(), user.getLastName(), user.getMail());
+        return getDto(userService.get(userId));
     }
 
     @GetMapping("/")
@@ -43,5 +42,11 @@ public class UserController {
                 .map(user -> new UserResponseDto(user.getFirstName(),
                         user.getLastName(), user.getMail()))
                 .collect(Collectors.toList());
+    }
+
+    public UserResponseDto getDto(User user) {
+        UserResponseDto dto = new UserResponseDto(user.getFirstName(),
+                user.getLastName(), user.getMail());
+        return dto;
     }
 }

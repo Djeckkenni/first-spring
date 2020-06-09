@@ -1,7 +1,6 @@
 package mate.academy.service;
 
 import java.util.List;
-import mate.academy.dto.UserResponseDto;
 import mate.academy.model.User;
 
 public interface UserService {
@@ -9,5 +8,5 @@ public interface UserService {
 
     List<User> listUsers();
 
-    UserResponseDto get(Long userId);
+    User get(Long userId);
 }

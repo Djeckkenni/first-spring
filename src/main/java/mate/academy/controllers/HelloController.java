@@ -16,6 +16,5 @@ public class HelloController {
     public UserResponseDto getUser() {
         UserResponseDto dto = new UserResponseDto("Bob","Singlar","bob@i.ua");
         return dto;
-
     }
 }
